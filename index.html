@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>魔搭保活清单 · 管理台</title>
+<meta property="og:title" content="魔搭保活清单 · 管理台">
+<meta property="og:description" content="盛通 AI 工具台 · 魔搭创空间保活链接可视化管理">
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#fff; --line:#e5e9f0; --text:#1f2937; --sub:#6b7280;
+    --blue:#2563eb; --blue-hover:#1d4ed8; --green:#16a34a; --red:#dc2626;
+    --amber:#d97706; --chip:#eef2ff; --shadow:0 2px 12px rgba(30,50,90,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:24px 16px}
+  .wrap{max-width:900px;margin:0 auto}
+  header{text-align:center;margin-bottom:24px}
+  header h1{font-size:26px;font-weight:700}
+  header p{color:var(--sub);font-size:14px;margin-top:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  label{font-size:13px;color:var(--sub);font-weight:600}
+  input[type=text],input[type=password]{flex:1;min-width:220px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;outline:none;background:#fff;color:var(--text)}
+  input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+  button{border:none;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-hover)}
+  .btn-ghost{background:#f3f4f6;color:var(--text)}
+  .btn-ghost:hover{background:#e5e7eb}
+  .btn-red{background:#fee2e2;color:var(--red)}
+  .btn-red:hover{background:#fecaca}
+  .btn-sm{padding:6px 11px;font-size:12px}
+  table{width:100%;border-collapse:collapse;margin-top:6px}
+  th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+  th{color:var(--sub);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  td .nm{font-weight:600}
+  td a{color:var(--blue);text-decoration:none;font-size:13px;word-break:break-all}
+  td a:hover{text-decoration:underline}
+  .idx{color:#9ca3af;width:34px;font-variant-numeric:tabular-nums}
+  .actions{white-space:nowrap;text-align:right}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:10px}
+  .count{font-size:13px;color:var(--sub)}
+  .status{font-size:13px;padding:10px 14px;border-radius:9px;margin-top:12px;display:none}
+  .status.ok{display:block;background:#dcfce7;color:#166534}
+  .status.err{display:block;background:#fee2e2;color:#991b1b}
+  .status.info{display:block;background:#dbeafe;color:#1e40af}
+  .tips{font-size:13px;color:var(--sub);line-height:1.9}
+  .tips code{background:#f3f4f6;padding:1px 6px;border-radius:5px;font-size:12px}
+  details{margin-top:8px}
+  summary{cursor:pointer;font-size:13px;color:var(--blue);font-weight:600}
+  .note{background:var(--chip);border:1px solid #dbe3ff;border-radius:9px;padding:12px 14px;font-size:13px;color:#3730a3;margin-bottom:16px}
+  .mask{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:50}
+  .mask.show{display:flex}
+  .dialog{background:#fff;border-radius:14px;padding:26px;width:min(420px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .dialog h3{margin-bottom:10px;font-size:18px}
+  .dialog p{font-size:13px;color:var(--sub);margin-bottom:16px}
+  .dialog input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;margin-bottom:14px}
+  .dialog .row{justify-content:flex-end}
+  .empty{text-align:center;color:var(--sub);padding:30px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🛡️ 魔搭保活清单 · 管理台</h1>
+    <p>编辑链接清单 → 一键写回 GitHub → GitHub Actions 每 6 小时自动访问保温</p>
+  </header>
+
+  <div class="note">
+    工作原理：魔搭创空间无人访问会休眠，浏览器打开链接即自动冷启动。本方案<strong>只做 GET 访问，绝不调用发布/部署接口</strong>。改完清单点「保存到 GitHub」即可，定时任务自动读取最新版本。
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <div>
+        <label style="margin-right:8px">GitHub 令牌 PAT</label>
+        <input type="password" id="pat" placeholder="填写有 repo 权限的 ghp_... 令牌（仅本地使用，不上传）" style="width:360px">
+      </div>
+      <div class="count" id="count">共 0 个项目</div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn-primary" onclick="save()">⬆️ 保存到 GitHub</button>
+      <button class="btn-ghost" onclick="loadFromGitHub()">⬇️ 从 GitHub 重新载入</button>
+      <button class="btn-ghost" onclick="addRow()">➕ 添加项目</button>
+      <button class="btn-ghost" onclick="exportJSON()">📋 导出 JSON</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th class="idx">#</th><th style="width:34%">名称</th><th>访问链接</th><th class="actions">操作</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none">清单为空，点「添加项目」开始</div>
+  </div>
+
+  <div class="card">
+    <details open>
+      <summary>使用说明 / 常见问题</summary>
+      <div class="tips" style="margin-top:12px">
+        1. <strong>令牌从哪来</strong>：GitHub → 头像 → Settings → Developer settings → Personal access tokens → Tokens(classic)，勾选 <code>repo</code> 权限生成 <code>ghp_</code> 开头的令牌。令牌只保存在你浏览器输入框，页面不会存盘或外传，仅用于调用 GitHub API 写文件。<br>
+        2. <strong>没令牌也能用</strong>：可直接编辑仓库里的 <code>keepalive.json</code> 后提交，效果一样。本地 <code>keepalive_studios.py</code> 也读同一份配置。<br>
+        3. <strong>为什么不部署成在线服务</strong>：保活需要持久运行的进程，本地定时会随机关机中断；改用 GitHub Actions 云端定时，不依赖你的电脑。<br>
+        4. <strong>状态判断</strong>：200=在线保温；404/502=已发唤醒信号，1-2分钟自动启动；401/403=需手动点平台「发布」。<br>
+        5. <strong>查看运行记录</strong>：仓库 Actions 标签页可看每次保活日志；<code>keepalive.log</code> 有最近结果。
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="mask" id="mask">
+  <div class="dialog">
+    <h3>⚠️ 确认删除</h3>
+    <p id="delName"></p>
+    <div class="row"><button class="btn-ghost" onclick="closeMask()">取消</button><button class="btn-red" id="delOk">删除</button></div>
+  </div>
+</div>
+
+<script>
+const REPO = 'nmww/ms-keepalive';
+const FILE = 'keepalive.json';
+const RAW  = 'https://raw.githubusercontent.com/' + REPO + '/main/' + FILE;
+const API  = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
+let projects = [];
+let fileSha = null;
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function showStatus(msg,type){const el=document.getElementById('status');el.textContent=msg;el.className='status '+type}
+
+function render(){
+  const tb=document.getElementById('tbody');
+  tb.innerHTML = projects.map((p,i)=>`
+    <tr>
+      <td class="idx">${i+1}</td>
+      <td><input type="text" value="${esc(p.name)}" oninput="projects[${i}].name=this.value" class="nm" style="width:100%;border:1px solid transparent;background:transparent;font-weight:600;font-size:14px;padding:4px 6px;border-radius:6px"></td>
+      <td><input type="text" value="${esc(p.url)}" oninput="projects[${i}].url=this.value" style="width:100%;border:1px solid transparent;background:transparent;font-size:13px;color:#2563eb;padding:4px 6px;border-radius:6px"></td>
+      <td class="actions">
+        <button class="btn-ghost btn-sm" onclick="window.open(projects[${i}].url,'_blank')">打开</button>
+        <button class="btn-red btn-sm" onclick="askDel(${i})">删</button>
+      </td>
+    </tr>`).join('');
+  document.getElementById('empty').style.display = projects.length?'none':'block';
+  document.getElementById('count').textContent = '共 '+projects.length+' 个项目';
+}
+function addRow(){projects.push({name:'新项目',url:'https://'});render();document.getElementById('tbody').lastElementChild.querySelectorAll('input')[0].focus()}
+function askDel(i){document.getElementById('delName').textContent='确定删除「'+projects[i].name+'」吗？';document.getElementById('mask').classList.add('show');document.getElementById('delOk').onclick=()=>{projects.splice(i,1);render();closeMask()}}
+function closeMask(){document.getElementById('mask').classList.remove('show')}
+
+function buildContent(){
+  return JSON.stringify({
+    '_说明':'盛通 AI 工具台保活清单。三处共用：GitHub Actions 定时任务 / 本地脚本 / 可视化管理页(index.html)。要保活哪些项目，就在这里增删 projects。',
+    '_原理':'魔搭创空间无人访问会休眠(Sleeping)，浏览器访问链接即触发自动冷启动。本方案只做GET访问，绝不调用发布/部署接口。',
+    '_管理':'打开 index.html 可视化编辑；或改完本文件后 git commit & push，定时任务自动读取最新版本。',
+    interval_hours:6,
+    projects: projects.filter(p=>p.name.trim()&&p.url.trim())
+  }, null, 2) + '\n';
+}
+
+function getPat(){return document.getElementById('pat').value.trim()}
+function b64(str){return btoa(unescape(encodeURIComponent(str)))}
+
+async function loadFromGitHub(){
+  showStatus('正在从 GitHub 读取清单…','info');
+  try{
+    const res = await fetch(RAW+'?t='+Date.now());
+    if(!res.ok) throw new Error('读取失败 HTTP '+res.status);
+    const data = await res.json();
+    projects = data.projects || [];
+    render();
+    showStatus('✅ 已载入 '+projects.length+' 个项目（来自 GitHub 最新版本）','ok');
+    // 顺便拿 sha，保存时要用到
+    const pat=getPat();
+    if(pat){
+      const r2=await fetch(API,{headers:{'Authorization':'Bearer '+pat}});
+      if(r2.ok){fileSha=(await r2.json()).sha}
+    }
+  }catch(e){showStatus('载入失败：'+e.message,'err')}
+}
+
+async function save(){
+  const pat=getPat();
+  if(!pat){showStatus('请先填写有 repo 权限的 GitHub 令牌 PAT','err');return}
+  if(!projects.length){showStatus('清单为空，先添加项目','err');return}
+  showStatus('正在写入 GitHub…','info');
+  try{
+    if(!fileSha){
+      const r=await fetch(API,{headers:{'Authorization':'Bearer '+pat}});
+      if(r.ok){fileSha=(await r.json()).sha}
+      else if(r.status!==404){throw new Error('读取文件SHA失败 HTTP '+r.status)}
+    }
+    const body={message:'chore: 更新保活清单（管理页） '+new Date().toISOString().slice(0,16).replace('T',' '),content:b64(buildContent()),branch:'main'};
+    if(fileSha) body.sha=fileSha;
+    const r2=await fetch(API,{method:'PUT',headers:{'Authorization':'Bearer '+pat,'Content-Type':'application/json','Accept':'application/vnd.github+json'},body:JSON.stringify(body)});
+    if(!r2.ok){const t=await r2.text();throw new Error('写入失败 HTTP '+r2.status+' '+t.slice(0,120))}
+    const j=await r2.json();
+    fileSha=j.content.sha;
+    showStatus('✅ 已保存到 GitHub！'+projects.length+' 个项目，定时任务将自动读取。提交：'+j.commit.sha.slice(0,7),'ok');
+  }catch(e){showStatus('保存失败：'+e.message,'err')}
+}
+
+function exportJSON(){
+  const blob=new Blob([buildContent()],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='keepalive.json';a.click();
+  showStatus('已导出 keepalive.json','ok');
+}
+
+// 初始化：优先 localStorage 缓存，再尝试从 GitHub 拉最新
+(function init(){
+  try{const c=localStorage.getItem('ka_cache');if(c){projects=JSON.parse(c).projects||[];render()}}catch(e){}
+  loadFromGitHub();
+  // 编辑时缓存到本地，防止误刷新丢失
+  const origRender=render;
+  // 简单起见：定时缓存
+  setInterval(()=>{try{localStorage.setItem('ka_cache',JSON.stringify({projects}))}catch(e){}},1500);
+})();
+</script>
+</body>
+</html>
