@@ -124,6 +124,35 @@ const REPO = 'nmww/ms-keepalive';
 const FILE = 'keepalive.json';
 const RAW  = 'https://raw.githubusercontent.com/' + REPO + '/main/' + FILE;
 const API  = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
+// 内嵌默认清单：保证 file:// 本地打开或网络不通时也能立即看到内容，不被 CORS 卡成空白
+const DEFAULT_PROJECTS = [
+  {name:'小工具平台',url:'https://modeai-tools.ms.show/'},
+  {name:'热榜台',url:'https://modeai-hotboard.ms.show/'},
+  {name:'Discuz 论坛',url:'https://modeai-discuz.ms.show/'},
+  {name:'微信 Markdown 编辑器',url:'https://modeai-wechat-markdown-editor.ms.show/'},
+  {name:'安全文件快递柜',url:'https://modeai-sharebox.ms.show/'},
+  {name:'万能表单 QuickForm',url:'https://modeai-quickform.ms.show/'},
+  {name:'AI 绘画',url:'https://modeai-huaxuezhong.ms.show/'},
+  {name:'语音聊天屋',url:'https://modeai-chatforme.ms.show/'},
+  {name:'人生决策指南',url:'https://modeai-lifeguide.ms.show/'},
+  {name:'小学全科 AI 学堂',url:'https://modeai-shengtong-edu.ms.show/'},
+  {name:'AI 绘本/语音工坊',url:'https://modeai-voice-studio.ms.show/'},
+  {name:'AI 证件照',url:'https://modeai-hivisionidphoto.ms.show/'},
+  {name:'OurClass 课堂积分',url:'https://modeai-ourclass.ms.show/'},
+  {name:'SRT 白板手绘动画',url:'https://modeai-srt-whiteboard-animation.ms.show/'},
+  {name:'智能体课堂 QuickClass',url:'https://modeai-quickclass.ms.show/'},
+  {name:'AI 语音工作台',url:'https://modeai-shengtong-yuyin.ms.show/'},
+  {name:'视频转文字·字幕提取',url:'https://modeai-whisper-subtitle-studio.ms.show/'},
+  {name:'PDF 在线编辑阅读',url:'https://modeai-stirlingpdf.ms.show/'},
+  {name:'开源游戏平台',url:'https://modeai-game-hub.ms.show/'},
+  {name:'AI Town 小镇',url:'https://modeai-ai-town.ms.show/'},
+  {name:'人间奇遇录',url:'https://modeai-worlds-of-life.ms.show/'},
+  {name:'甲烷燃烧 3D 演示',url:'https://modeai-k12-edulab-chem.ms.show/'},
+  {name:'立体几何 3D 课件',url:'https://modeai-k12-edulab-geometry.ms.show/'},
+  {name:'紫微斗数排盘',url:'https://modeai-ziwei-doushu.ms.show/'},
+  {name:'TOTP 两步验证演示',url:'https://modeai-totp-2fa-demo.ms.show/'},
+  {name:'蓝色大肥鱼',url:'https://modeai-blue-fat-fish.ms.show/'}
+];
 let projects = [];
 let fileSha = null;
 
@@ -207,9 +236,11 @@ function exportJSON(){
   showStatus('已导出 keepalive.json','ok');
 }
 
-// 初始化：优先 localStorage 缓存，再尝试从 GitHub 拉最新
+// 初始化：localStorage 缓存 → 内嵌默认清单兜底 → 再异步从 GitHub 拉最新
 (function init(){
-  try{const c=localStorage.getItem('ka_cache');if(c){projects=JSON.parse(c).projects||[];render()}}catch(e){}
+  let loaded=false;
+  try{const c=localStorage.getItem('ka_cache');if(c){projects=JSON.parse(c).projects||[];if(projects.length){render();loaded=true}}}catch(e){}
+  if(!loaded){projects=DEFAULT_PROJECTS.slice();render()}
   loadFromGitHub();
   // 编辑时缓存到本地，防止误刷新丢失
   const origRender=render;
