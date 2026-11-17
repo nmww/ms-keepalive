@@ -1,11 +1,16 @@
 name: 魔搭空间保活
 
-# 每 6 小时自动访问清单里的所有链接，模拟浏览器打开触发冷启动保温。
-# 只做 GET，绝不调用发布/部署接口。也可在 Actions 页面手动点 Run workflow 立即保活。
+# 每小时访问清单里的所有链接，模拟浏览器打开触发冷启动保温。
+# 只做 GET，绝不调用发布/部署接口。
+# 跑完把结构化结果 status.json 提交回仓库，在线管理台读取它显示心跳。
+# 也可在 Actions 页面手动点 Run workflow 立即保活。
 on:
   schedule:
-    - cron: '0 */6 * * *'   # UTC 每6小时 = 北京时间 08:00 / 14:00 / 20:00 / 02:00
-  workflow_dispatch:        # 手动触发
+    - cron: '3 * * * *'   # UTC 每小时第3分（避开整点高峰，减少 GitHub schedule 延迟/丢弃）
+  workflow_dispatch:      # 手动触发 / 外部 automation 定时触发
+
+permissions:
+  contents: write         # 提交 status.json 与 keepalive.log 回仓库所需
 
 jobs:
   keepalive:
@@ -25,3 +30,16 @@ jobs:
           name: keepalive-log
           path: keepalive.log
           retention-days: 14
+
+      - name: 回写心跳状态到仓库（供在线管理台读取）
+        if: always()
+        run: |
+          git config user.name "keepalive-bot"
+          git config user.email "keepalive-bot@users.noreply.github.com"
+          git add status.json keepalive.log
+          if git diff --cached --quiet; then
+            echo "无变化，跳过提交"
+          else
+            git commit -m "chore: 更新保活心跳 $(date -u +%Y-%m-%dT%H:%MZ)"
+            git push
+          fi
