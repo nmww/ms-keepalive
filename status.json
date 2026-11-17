@@ -1,0 +1,168 @@
+{
+  "updated_at": "2026-11-17T03:23:02Z",
+  "updated_at_local": "2026-11-17 11:23:06",
+  "run_id": "",
+  "source": "local",
+  "total": 26,
+  "ok": 21,
+  "waking": 5,
+  "bad": 0,
+  "results": [
+    {
+      "name": "小工具平台",
+      "url": "https://modeai-tools.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "热榜台",
+      "url": "https://modeai-hotboard.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "Discuz 论坛",
+      "url": "https://modeai-discuz.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "微信 Markdown 编辑器",
+      "url": "https://modeai-wechat-markdown-editor.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "安全文件快递柜",
+      "url": "https://modeai-sharebox.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "万能表单 QuickForm",
+      "url": "https://modeai-quickform.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "AI 绘画",
+      "url": "https://modeai-huaxuezhong.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "语音聊天屋",
+      "url": "https://modeai-chatforme.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "人生决策指南",
+      "url": "https://modeai-lifeguide.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "小学全科 AI 学堂",
+      "url": "https://modeai-shengtong-edu.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "AI 绘本/语音工坊",
+      "url": "https://modeai-voice-studio.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "AI 证件照",
+      "url": "https://modeai-hivisionidphoto.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "OurClass 课堂积分",
+      "url": "https://modeai-ourclass.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "SRT 白板手绘动画",
+      "url": "https://modeai-srt-whiteboard-animation.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "智能体课堂 QuickClass",
+      "url": "https://modeai-quickclass.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "AI 语音工作台",
+      "url": "https://modeai-shengtong-yuyin.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "视频转文字·字幕提取",
+      "url": "https://modeai-whisper-subtitle-studio.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "PDF 在线编辑阅读",
+      "url": "https://modeai-stirlingpdf.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "开源游戏平台",
+      "url": "https://modeai-game-hub.ms.show/",
+      "code": "404",
+      "status": "waking"
+    },
+    {
+      "name": "AI Town 小镇",
+      "url": "https://modeai-ai-town.ms.show/",
+      "code": "404",
+      "status": "waking"
+    },
+    {
+      "name": "人间奇遇录",
+      "url": "https://modeai-worlds-of-life.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "甲烷燃烧 3D 演示",
+      "url": "https://modeai-k12-edulab-chem.ms.show/",
+      "code": "404",
+      "status": "waking"
+    },
+    {
+      "name": "立体几何 3D 课件",
+      "url": "https://modeai-k12-edulab-geometry.ms.show/",
+      "code": "404",
+      "status": "waking"
+    },
+    {
+      "name": "紫微斗数排盘",
+      "url": "https://modeai-ziwei-doushu.ms.show/",
+      "code": "404",
+      "status": "waking"
+    },
+    {
+      "name": "TOTP 两步验证演示",
+      "url": "https://modeai-totp-2fa-demo.ms.show/",
+      "code": "200",
+      "status": "online"
+    },
+    {
+      "name": "蓝色大肥鱼",
+      "url": "https://modeai-blue-fat-fish.ms.show/",
+      "code": "303",
+      "status": "online"
+    }
+  ]
+}
