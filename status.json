@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-17T19:34:06Z",
-  "updated_at_local": "2026-11-17 19:35:25",
-  "run_id": "44159946977",
+  "updated_at": "2026-11-17T20:37:00Z",
+  "updated_at_local": "2026-11-17 20:38:17",
+  "run_id": "44171151808",
   "source": "github-actions",
   "total": 26,
   "ok": 23,
-  "waking": 2,
-  "bad": 1,
+  "waking": 1,
+  "bad": 2,
   "results": [
     {
       "name": "小工具平台",
@@ -143,8 +143,8 @@
     {
       "name": "立体几何 3D 课件",
       "url": "https://modeai-k12-edulab-geometry.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "200",
+      "status": "online"
     },
     {
       "name": "紫微斗数排盘",
@@ -161,8 +161,8 @@
     {
       "name": "蓝色大肥鱼",
       "url": "https://modeai-blue-fat-fish.ms.show/",
-      "code": "303",
-      "status": "online"
+      "code": "ERR:The read operation timed out",
+      "status": "bad"
     }
   ]
 }
