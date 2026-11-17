@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-17T03:30:03Z",
-  "updated_at_local": "2026-11-17 03:30:12",
-  "run_id": "44010624075",
-  "source": "github-actions",
+  "updated_at": "2026-11-17T03:48:58Z",
+  "updated_at_local": "2026-11-17 11:50:10",
+  "run_id": "",
+  "source": "local",
   "total": 26,
-  "ok": 21,
-  "waking": 5,
+  "ok": 23,
+  "waking": 3,
   "bad": 0,
   "results": [
     {
@@ -137,8 +137,8 @@
     {
       "name": "甲烷燃烧 3D 演示",
       "url": "https://modeai-k12-edulab-chem.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "200",
+      "status": "online"
     },
     {
       "name": "立体几何 3D 课件",
@@ -149,8 +149,8 @@
     {
       "name": "紫微斗数排盘",
       "url": "https://modeai-ziwei-doushu.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "200",
+      "status": "online"
     },
     {
       "name": "TOTP 两步验证演示",
