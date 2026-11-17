@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-17T04:31:21Z",
-  "updated_at_local": "2026-11-17 04:32:40",
-  "run_id": "44017744886",
+  "updated_at": "2026-11-17T05:34:23Z",
+  "updated_at_local": "2026-11-17 05:35:42",
+  "run_id": "44025037352",
   "source": "github-actions",
   "total": 26,
-  "ok": 23,
-  "waking": 3,
+  "ok": 24,
+  "waking": 2,
   "bad": 0,
   "results": [
     {
@@ -119,8 +119,8 @@
     {
       "name": "开源游戏平台",
       "url": "https://modeai-game-hub.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "200",
+      "status": "online"
     },
     {
       "name": "AI Town 小镇",
