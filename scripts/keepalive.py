@@ -14,7 +14,7 @@
    所以每次保活必须把结构化结果 commit 回仓库，管理台才有心跳数据。
    不要改成写数据库/调外部 API——会引入 token 暴露和依赖，破坏纯静态架构。
 """
-import json, os, sys, urllib.request, urllib.error, datetime
+import json, os, sys, time, urllib.request, urllib.error, datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,6 +34,23 @@ def ping(url, timeout=40):
         return e.code
     except Exception as e:
         return "ERR:" + str(e)[:60]
+
+
+def ping_with_wake(url, timeout=40):
+    """先 GET 探活；若 404（休眠唤醒中）等待后复测，避免把冷启动中间态误记成常态。
+    ⛔ 不要去掉复测：魔搭冷启动需 1-2 分钟，单次 GET 抓到的 404 是瞬时值，
+       用户随后打开变 200 后管理台仍显示"唤醒中"就是这个问题。复测让心跳贴近真实。
+    """
+    code = ping(url, timeout)
+    if code in (404, 502, 503):
+        # 给冷启动留时间，复测两轮（共约 70 秒），取最后一次有效状态
+        for wait in (30, 40):
+            time.sleep(wait)
+            code2 = ping(url, timeout)
+            if code2 not in (404, 502, 503):
+                return code2
+            code = code2
+    return code
 
 
 def classify(code):
@@ -60,7 +77,7 @@ def main():
 
     results = {}
     with ThreadPoolExecutor(max_workers=8) as pool:
-        futs = {pool.submit(ping, p["url"]): p for p in items}
+        futs = {pool.submit(ping_with_wake, p["url"]): p for p in items}
         for fut in as_completed(futs):
             p = futs[fut]
             try:
