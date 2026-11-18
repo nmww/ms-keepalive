@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-18T15:40:06Z",
-  "updated_at_local": "2026-11-18 15:40:51",
-  "run_id": "44338250472",
+  "updated_at": "2026-11-18T16:42:40Z",
+  "updated_at_local": "2026-11-18 16:43:57",
+  "run_id": "44350339168",
   "source": "github-actions",
   "total": 26,
-  "ok": 25,
-  "waking": 0,
+  "ok": 24,
+  "waking": 1,
   "bad": 1,
   "results": [
     {
@@ -137,8 +137,8 @@
     {
       "name": "甲烷燃烧 3D 演示",
       "url": "https://modeai-k12-edulab-chem.ms.show/",
-      "code": "200",
-      "status": "online"
+      "code": "404",
+      "status": "waking"
     },
     {
       "name": "立体几何 3D 课件",
