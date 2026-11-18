@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-18T06:18:56Z",
-  "updated_at_local": "2026-11-18 06:19:07",
-  "run_id": "44250413676",
+  "updated_at": "2026-11-18T07:20:42Z",
+  "updated_at_local": "2026-11-18 07:21:27",
+  "run_id": "44258121617",
   "source": "github-actions",
   "total": 26,
-  "ok": 26,
+  "ok": 25,
   "waking": 0,
-  "bad": 0,
+  "bad": 1,
   "results": [
     {
       "name": "小工具平台",
@@ -161,8 +161,8 @@
     {
       "name": "蓝色大肥鱼",
       "url": "https://modeai-blue-fat-fish.ms.show/",
-      "code": "303",
-      "status": "online"
+      "code": "ERR:The read operation timed out",
+      "status": "bad"
     }
   ]
 }
