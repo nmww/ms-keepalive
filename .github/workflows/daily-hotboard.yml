@@ -1,0 +1,28 @@
+name: 热榜台每日帖 → Discuz
+
+# 每天北京时间 09:00 把 hotboard 当天榜单发到 Discuz「每日热榜」版块(fid=21)。
+# 起因：魔搭新规禁止免费创空间互访，hotboard 容器内已无法直连 discuz(HTTP 403)，
+#       改由 GitHub Actions runner（非创空间）发帖，绕开限制。
+# token 存 GitHub Secrets: DISCUZ_OPS_TOKEN（discuz /agentops.php 的 X-Ops-Token）。
+on:
+  schedule:
+    - cron: '0 1 * * *'   # UTC 01:00 = 北京时间 09:00
+  workflow_dispatch:      # 手动补发/测试
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 拉取仓库
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 发布当日热榜帖
+        env:
+          DISCUZ_OPS_TOKEN: ${{ secrets.DISCUZ_OPS_TOKEN }}
+        run: python3 scripts/post_hotboard.py
