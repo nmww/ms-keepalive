@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-19T00:08:24Z",
-  "updated_at_local": "2026-11-19 00:09:43",
-  "run_id": "44426545942",
+  "updated_at": "2026-11-19T01:14:43Z",
+  "updated_at_local": "2026-11-19 01:16:00",
+  "run_id": "44435399583",
   "source": "github-actions",
   "total": 26,
-  "ok": 24,
-  "waking": 1,
-  "bad": 1,
+  "ok": 22,
+  "waking": 2,
+  "bad": 2,
   "results": [
     {
       "name": "小工具平台",
@@ -47,8 +47,8 @@
     {
       "name": "AI 绘画",
       "url": "https://modeai-huaxuezhong.ms.show/",
-      "code": "200",
-      "status": "online"
+      "code": "401",
+      "status": "bad"
     },
     {
       "name": "语音聊天屋",
@@ -143,8 +143,8 @@
     {
       "name": "立体几何 3D 课件",
       "url": "https://modeai-k12-edulab-geometry.ms.show/",
-      "code": "200",
-      "status": "online"
+      "code": "404",
+      "status": "waking"
     },
     {
       "name": "紫微斗数排盘",
