@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-22T23:14:38Z",
-  "updated_at_local": "2026-11-22 23:15:56",
-  "run_id": "45082174679",
+  "updated_at": "2026-11-23T05:45:50Z",
+  "updated_at_local": "2026-11-23 05:47:52",
+  "run_id": "45119773290",
   "source": "github-actions",
   "total": 26,
   "ok": 23,
-  "waking": 2,
-  "bad": 1,
+  "waking": 1,
+  "bad": 2,
   "results": [
     {
       "name": "小工具平台",
@@ -143,8 +143,8 @@
     {
       "name": "立体几何 3D 课件",
       "url": "https://modeai-k12-edulab-geometry.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "ERR:<urlopen error _ssl.c:1063: The handshake operation timed ou",
+      "status": "bad"
     },
     {
       "name": "紫微斗数排盘",
