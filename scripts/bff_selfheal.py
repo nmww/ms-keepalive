@@ -13,6 +13,7 @@ GET 唤醒只对正常休眠有效，死容器必须 POST /deploy 重建（平�
 
 仅依赖标准库，ubuntu-latest 自带 python3 即可跑，不装任何包。
 """
+import http.cookiejar
 import json
 import os
 import time
@@ -53,10 +54,14 @@ def studio_info():
 
 
 def visit():
-    """带 UA 访问一次；dsh 首访 303 发 cookie 后跳回 ./，跟随重定向即可。"""
+    """带 UA + cookie jar 访问一次；dsh 首访 303 发 auth cookie 后跳回 ./，
+    ⛔ 必须带 jar 跟随，否则拿到 303 误判为僵尸触发无谓重建（已在 Actions 实测踩坑）。"""
+    jar = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(
+        urllib.request.HTTPCookieProcessor(jar))
     req = urllib.request.Request(MS_URL, headers={'User-Agent': UA})
     try:
-        with urllib.request.urlopen(req, timeout=25) as r:
+        with opener.open(req, timeout=25) as r:
             return r.status, r.read(200000).decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
         return e.code, ''
