@@ -1,9 +1,9 @@
 {
   "event_type": "actions",
-  "http_code": "200",
-  "view_count": 135,
+  "http_code": "403",
+  "view_count": 172,
   "studio_status": "Deploying",
-  "result": "ok",
-  "detail": "保活正常，页面标题校验通过",
-  "checked_at": "2026-11-24T13:44:25+08:00"
+  "result": "rebuilt",
+  "detail": "重建成功，http=403",
+  "checked_at": "2026-11-25T01:47:55+08:00"
 }
