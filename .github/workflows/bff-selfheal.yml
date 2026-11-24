@@ -1,0 +1,42 @@
+name: 蓝色大肥鱼自愈
+
+# 每小时检测大肥鱼裸域名；非 200（僵尸实例）就 POST /deploy 重建并轮询到 listening。
+# 令牌存 GitHub Secrets（MODELSCOPE_TOKEN），不进代码。本机零占用。
+# 心跳结果写回 bff-heartbeat.json 提交到仓库，线上可查。
+on:
+  schedule:
+    - cron: '17 * * * *'   # UTC 每小时第17分，与现有 keepalive 的第3分错开
+  workflow_dispatch:      # 手动/外部触发
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bff-selfheal
+  cancel-in-progress: false
+
+jobs:
+  selfheal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 拉取仓库
+        uses: actions/checkout@v4
+
+      - name: 自愈检测与重建
+        env:
+          MODELSCOPE_TOKEN: ${{ secrets.MODELSCOPE_TOKEN }}
+        run: python3 scripts/bff_selfheal.py
+
+      - name: 回写心跳到仓库
+        if: always()
+        run: |
+          git config user.name "keepalive-bot"
+          git config user.email "keepalive-bot@users.noreply.github.com"
+          git add bff-heartbeat.json
+          if git diff --cached --quiet; then
+            echo "心跳无变化，跳过提交"
+          else
+            git commit -m "chore: 更新大肥鱼自愈心跳"
+            git push
+          fi
