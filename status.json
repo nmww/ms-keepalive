@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-24T03:48:03Z",
-  "updated_at_local": "2026-11-24 03:49:21",
-  "run_id": "45321972324",
+  "updated_at": "2026-11-24T14:32:55Z",
+  "updated_at_local": "2026-11-24 14:33:03",
+  "run_id": "45415290479",
   "source": "github-actions",
   "total": 26,
   "ok": 23,
-  "waking": 2,
-  "bad": 1,
+  "waking": 0,
+  "bad": 3,
   "results": [
     {
       "name": "小工具平台",
@@ -137,14 +137,14 @@
     {
       "name": "甲烷燃烧 3D 演示",
       "url": "https://modeai-k12-edulab-chem.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "500",
+      "status": "bad"
     },
     {
       "name": "立体几何 3D 课件",
       "url": "https://modeai-k12-edulab-geometry.ms.show/",
-      "code": "404",
-      "status": "waking"
+      "code": "500",
+      "status": "bad"
     },
     {
       "name": "紫微斗数排盘",
@@ -161,7 +161,7 @@
     {
       "name": "蓝色大肥鱼",
       "url": "https://modeai-blue-fat-fish.ms.show/",
-      "code": "ERR:The read operation timed out",
+      "code": "403",
       "status": "bad"
     }
   ]
