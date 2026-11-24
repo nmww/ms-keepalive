@@ -1,0 +1,9 @@
+{
+  "event_type": "actions",
+  "http_code": "303",
+  "view_count": 135,
+  "studio_status": "Deploying",
+  "result": "rebuilt",
+  "detail": "重建成功，http=303",
+  "checked_at": "2026-11-24T13:43:35+08:00"
+}
