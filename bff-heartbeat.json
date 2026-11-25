@@ -1,10 +1,10 @@
 {
   "event_type": "actions",
   "http_code": "403",
-  "view_count": 207,
+  "view_count": 209,
   "studio_status": "Running",
   "result": "ok",
   "detail": "健康（未见密集失败 (fails=0, 最近 40 行)）；裸域名 http=403 仅供参考（私有空间必 403）",
   "zombie_check": "未见密集失败 (fails=0, 最近 40 行)",
-  "checked_at": "2026-11-25T17:51:23+08:00"
+  "checked_at": "2026-11-26T03:56:37+08:00"
 }
