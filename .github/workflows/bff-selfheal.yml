@@ -5,7 +5,7 @@ name: 蓝色大肥鱼自愈
 # 心跳结果写回 bff-heartbeat.json 提交到仓库，线上可查。
 on:
   schedule:
-    - cron: '17 * * * *'   # UTC 每小时第17分，与现有 keepalive 的第3分错开
+    - cron: '17,47 * * * *' # UTC 每30分钟(第17/47分)；GitHub 高峰常跳过整点调度，双点提高命中
   workflow_dispatch:      # 手动/外部触发
 
 permissions:
