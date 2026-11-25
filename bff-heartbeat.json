@@ -1,9 +1,10 @@
 {
   "event_type": "actions",
   "http_code": "403",
-  "view_count": 172,
-  "studio_status": "Deploying",
-  "result": "rebuilt",
-  "detail": "重建成功，http=403",
-  "checked_at": "2026-11-25T01:47:55+08:00"
+  "view_count": 177,
+  "studio_status": "Running",
+  "result": "ok",
+  "detail": "健康（未见密集失败 (fails=0, 最近 40 行)）；裸域名 http=403 仅供参考（私有空间必 403）",
+  "zombie_check": "未见密集失败 (fails=0, 最近 40 行)",
+  "checked_at": "2026-11-25T09:07:07+08:00"
 }
