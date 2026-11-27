@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-27T02:40:37Z",
-  "updated_at_local": "2026-11-27 02:40:45",
-  "run_id": "45929722154",
+  "updated_at": "2026-11-27T11:45:28Z",
+  "updated_at_local": "2026-11-27 11:45:48",
+  "run_id": "45993041372",
   "source": "github-actions",
   "total": 26,
-  "ok": 22,
+  "ok": 23,
   "waking": 0,
-  "bad": 4,
+  "bad": 3,
   "results": [
     {
       "name": "小工具平台",
@@ -47,8 +47,8 @@
     {
       "name": "AI 绘画",
       "url": "https://modeai-huaxuezhong.ms.show/",
-      "code": "401",
-      "status": "bad"
+      "code": "200",
+      "status": "online"
     },
     {
       "name": "语音聊天屋",
